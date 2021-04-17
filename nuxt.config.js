@@ -30,8 +30,10 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~plugins/vform',
-    '~plugins/global_components.js'
-  //  '~components/_global'
+    '~plugins/global_components.js',
+  //  '~components/_global',
+    { src: '~/plugins/gmaps', ssr: false }
+
   ],
 
   env: {
@@ -68,8 +70,8 @@ export default {
 */
       'laravelSanctum': {
         provider: 'laravel/sanctum',
-            url: 'http://designhouse2.test',
-//                url: process.env.API_URL,
+//            url: 'http://designhouse2.test',
+                url: process.env.BASE_URL,
         endpoints: {
             login: {
                 url: '/api/login',

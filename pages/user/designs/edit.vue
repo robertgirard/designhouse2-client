@@ -161,6 +161,7 @@ export default {
 
   methods:{
     submit(){
+      console.log(this.form)
       this.form
         .put(`/designs/${this.$route.params.id}`)
         .then(response => {

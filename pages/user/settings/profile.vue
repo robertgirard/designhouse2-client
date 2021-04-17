@@ -25,6 +25,13 @@
                 placeholder="Tagline"
               />
             </div>
+
+            <div class="form-group">
+              <base-gmap :initialValue="form.formatted_address" @address-response="handleAddress"></base-gmap>
+            </div>
+
+
+
            <div class="form-group">
               <base-textarea
                 :form="form"
@@ -78,7 +85,18 @@ export default {
 
   methods: {
     update(){
-
+      this.form
+        .put(`/settings/profile`)
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
+    },
+    handleAddress(data) {
+      console.log(data)
+      this.form.formatted_address = data.formatted_address;
+      this.form.location = {
+        latitude: data.latitude,
+        longitude: data.longitude
+      };
     }
   },
 
@@ -89,11 +107,21 @@ export default {
         this.form[k] = this.$auth.user[k]
       }
     })
+    if (this.$auth.user.location) {
+      this.form.location = {
+        longitude: this.$auth.user.location.coordinates[0],
+        latitude: this.$auth.user.location.coordinates[1]
+      }
+    } else {
+      this.form.location = {};
+    }
 
+/*
     this.form.location = {
       longitude: this.$auth.user.location.coordinates[0],
       latitude: this.$auth.user.location.coordinates[1]
     }
+*/
   }
 
 }

@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     async fetchUserDesigns() {
-      console.log(this.$auth.id)
+//      console.log(this.$auth)
       const { data } = await this.$axios.$get(
         `/users/${this.$auth.user.id}/designs`
       );
